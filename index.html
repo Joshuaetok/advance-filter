@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>APF Woo · Advanced Product Filter for WooCommerce</title>
+    <!-- Poppins font + fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- header / navigation -->
+<div class="container">
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-filter"></i>
+            <span>APF Woo</span>
+        </div>
+        <!-- Header menu – only the three required items -->
+        <div class="nav-links">
+            <a href="#" data-topic="quickstart">Quick Start</a>
+            <a href="#" data-topic="checklist">Testing Checklist</a>
+            <a href="#" data-topic="faq">FAQs</a>
+        </div>
+        <!-- Real‑time search input -->
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="docSearch" placeholder="Search documentation...">
+        </div>
+    </nav>
+</div>
+
+<!-- hero -->
+<section class="hero container">
+    <h1>Advanced Product Filter for WooCommerce</h1>
+    <p>Powerful AJAX filtering that works with standard loops and Elementor Pro Loop Grid. Shortcode & widget ready.</p>
+    <div class="hero-buttons">
+        <a href="#" class="btn btn-primary"><i class="fas fa-download" style="margin-right: 8px;"></i> Download plugin</a>
+        <a href="#" class="btn btn-outline"><i class="fas fa-rocket" style="margin-right: 8px;"></i> Quick start</a>
+    </div>
+</section>
+
+<!-- features grid -->
+<div class="container">
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+            <h3>AJAX + history.pushState</h3>
+            <p>Seamless filtering with browser history support. No page reloads, shareable URLs.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
+            <h3>Elementor Loop Grid</h3>
+            <p>Native integration with Elementor Pro. Uses template IDs and query IDs for perfect rendering.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-code"></i></div>
+            <h3>Shortcode + Widget</h3>
+            <p>Use <code>[apf_filters]</code> or drag‑and‑drop Elementor widget. Isolated instances, no conflicts.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-clock"></i></div>
+            <h3>Caching & Performance</h3>
+            <p>5‑minute transients + cache‑busting option. Works with WP Rocket, Cloudflare.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TUTORIAL VIDEO SECTION (new) -->
+<div class="container">
+    <div class="video-section">
+        <h2 class="section-title">Watch the Tutorial</h2>
+        <div class="video-wrapper">
+            <!-- Replace src with your actual video URL -->
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="Tutorial Video" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <p class="video-caption">Learn how to set up and customize the filter in under 5 minutes.</p>
+    </div>
+</div>
+
+<!-- main documentation panel with AJAX demo -->
+<div class="container" id="docs-panel-target">
+    <h2 class="section-title">Developer documentation</h2>
+    <div class="docs-panel">
+        <!-- sidebar menu (populated by JavaScript) -->
+        <div class="docs-sidebar">
+            <h4><i class="fas fa-book-open"></i> Topics</h4>
+            <ul class="doc-menu" id="docMenu">
+                <!-- dynamic items will be injected here -->
+            </ul>
+        </div>
+        <!-- dynamic content area -->
+        <div class="doc-content-area" id="docContent">
+            <div class="loading-spinner" id="loadingSpinner" style="display: none;"><div class="spinner"></div></div>
+            <div id="docDisplay"></div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 10px;">
+                    <i class="fas fa-filter"></i>
+                    <span>APF Woo</span>
+                </div>
+                <p>Advanced filtering for modern WooCommerce stores.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Resources</h5>
+                <ul id="dynamic-footer-menu">
+                    <!-- will be populated with all topics -->
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Help center</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">License</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Advanced Product Filter. Built by <i class="fas fa-heart" style="color: #007cba;"></i> Joshua Etok.
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="assets/script.js"></script>
+</body>
+</html>
