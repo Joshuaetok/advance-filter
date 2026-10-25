@@ -3,56 +3,62 @@ const docsDB = {
     quickstart: {
         title: 'Quick Start',
         icon: 'fa-rocket',
-        body: `<p><strong>Advanced Product Filter for WooCommerce</strong> is an AJAX filtering system that supports standard WooCommerce loops and Elementor Pro Loop Grids. It uses <code>history.pushState</code> for shareable URLs and 5‑minute transients for performance.</p>
-        <p><strong>Requirements:</strong> WordPress 5.8+, WooCommerce 5.0+, Elementor Pro (only for Loop Grid).</p>
+        body: `<p><strong>Advanced Product Filter for WooCommerce</strong> is an AJAX filtering system that supports standard WooCommerce loops and Elementor Pro Loop Grids. It uses <code>history.pushState</code> for shareable, server‑side‑rendered URLs and 10‑minute transients for performance.</p>
+        <p><strong>Requirements:</strong> WordPress 6.0+, WooCommerce 7.0+, Elementor Pro (only for Loop Grid).</p>
+        <p><strong>Zero‑config by default:</strong> the plugin auto‑detects the nearest product grid (Elementor Loop Grid, WooCommerce archive, or <code>.products</code>) and its template/query ID, so most sites need no container or template configuration at all.</p>
         <p><strong>Deployment:</strong><br>
-        • <i class="fas fa-widget"></i> Elementor widget: drag “Advanced Product Filter”<br>
-        • <i class="fas fa-code"></i> Shortcode: <code>[apf_filters]</code></p>`
+        • <i class="fas fa-puzzle-piece"></i> Elementor widget: drag “Advanced Product Filter”<br>
+        • <i class="fas fa-code"></i> Shortcode: <code>[apfw_filters]</code> (aliases: <code>[advanced_product_filter]</code>, legacy <code>[apf_filters]</code>)</p>
+        <p>Grab the latest release from the <a href="https://github.com/Joshuaetok/advanced-product-filter-for-woocommerce" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>`
     },
     container: {
         title: 'Container Class – AJAX Foundation',
         icon: 'fa-bullseye',
-        body: `<p>The target container selector tells the plugin where to inject filtered products. Find it via browser inspector: the direct parent wrapper of your product grid (e.g., <code>.products</code> or <code>.elementor-loop-container</code>).</p>
+        body: `<p>The target container selector tells the plugin where to inject filtered products. Leave it empty to let the plugin auto‑detect the nearest Elementor Loop Grid, WooCommerce archive loop, or <code>.products</code> wrapper. Set it explicitly if you have multiple grids on one page.</p>
         <p><strong>Test in console:</strong> <code>document.querySelector('.your-class')</code> should return the grid element.</p>
         <p><strong>Set it:</strong><br>
-        • Elementor widget: <em>Content > Settings > Target Container Selector</em><br>
-        • Shortcode: <code>[apf_filters container=".your-class"]</code></p>`
+        • Elementor widget: <em>Settings & Integration > Target Container Selector</em><br>
+        • Shortcode: <code>[apfw_filters container=".your-class"]</code></p>`
     },
     elementor: {
         title: 'Elementor Loop Grid Integration',
-        icon: 'fab fa-elementor',
-        body: `<p><strong>Step 1 – Obtain Template ID:</strong> Go to <strong>Templates > Saved Templates</strong>, hover “Edit” and copy the <code>post=</code> number (e.g., <code>1245</code>).</p>
+        icon: 'fa-th-large',
+        body: `<p><strong>Zero‑config:</strong> on most pages the plugin auto‑detects the Loop Grid's template ID and hooks its query automatically — no Query ID or Template ID setup needed.</p>
+        <p><strong>Manual setup (optional, for multiple grids on one page):</strong></p>
+        <p><strong>Step 1 – Obtain Template ID:</strong> Go to <strong>Templates > Saved Templates</strong>, hover “Edit” and copy the <code>post=</code> number (e.g., <code>1245</code>).</p>
         <p><strong>Step 2 – Configure Loop Grid:</strong> Add a Query ID (e.g., <code>my_grid</code>) in the Loop Grid widget’s Advanced tab.</p>
         <p><strong>Step 3 – Connect filter:</strong><br>
         • <em>Widget:</em> Set “Filter Target” to “Elementor Loop Grid”, enter Query ID and Template ID, container <code>.elementor-widget-loop-grid</code>.<br>
-        • <em>Shortcode:</em> <code>[apf_filters filter_mode="elementor" loop_query_id="my_grid" loop_template_id="1245" container=".elementor-widget-loop-grid"]</code></p>
-        <p>Backend uses <code>\Elementor\Plugin::frontend->get_builder_content_for_display()</code> to inject styles and HTML.</p>`
+        • <em>Shortcode:</em> <code>[apfw_filters filter_mode="elementor" query_id="my_grid" template_id="1245" container=".elementor-widget-loop-grid"]</code></p>
+        <p>Backend uses <code>\\Elementor\\Plugin::frontend->get_builder_content_for_display()</code> to inject styles and HTML.</p>`
     },
     shortcode: {
         title: 'Shortcode Reference',
         icon: 'fa-code',
-        body: `<p><strong>Main shortcode:</strong> <code>[apf_filters]</code> or <code>[advanced_product_filter]</code>. Each instance is isolated with a unique wrapper and <code>window.apfw_instances</code> data.</p>
+        body: `<p><strong>Main shortcode:</strong> <code>[apfw_filters]</code> (aliases: <code>[advanced_product_filter]</code>, legacy <code>[apf_filters]</code>). Each instance is isolated with a unique wrapper and <code>window.apfw_instances</code> data.</p>
         <p><strong>Key attributes:</strong><br>
-        <code>container</code> – CSS selector (default <code>.products</code>)<br>
+        <code>container</code> – CSS selector (leave empty to auto‑detect)<br>
         <code>filter_mode</code> – <code>standard</code> or <code>elementor</code><br>
-        <code>loop_query_id</code> – Elementor Query ID<br>
-        <code>loop_template_id</code> – Elementor template ID<br>
+        <code>query_id</code> (alias <code>loop_query_id</code>) – Elementor Query ID<br>
+        <code>template_id</code> (alias <code>loop_template_id</code>) – Elementor template ID<br>
         <code>fields_to_show</code> – e.g., <code>"categories,price,size,color,rating,stock"</code><br>
         <code>cat_display_style</code> – <code>buttons</code> or <code>dropdown</code><br>
         <code>size_attribute</code> – taxonomy slug (e.g., <code>pa_size</code>)<br>
         <code>color_attribute</code> – taxonomy slug (e.g., <code>pa_color</code>)<br>
-        <code>show_title</code> – <code>yes</code>/<code>no</code><br>
-        <code>title_text</code> – custom title</p>
-        <p><strong>Example:</strong> <code>[apf_filters container=".products" fields_to_show="categories,price"]</code></p>`
+        <code>show_title</code> / <code>title_text</code> – form heading<br>
+        <code>show_active_chips</code> – removable filter tags above the grid (<code>yes</code>/<code>no</code>, global default in WooCommerce > Settings > Advanced Filter)<br>
+        <code>enable_mobile_drawer</code> – collapsible filter panel on mobile (<code>yes</code>/<code>no</code>, same global default)<br>
+        <code>enable_cache_busting</code> – force real‑time results, bypassing the 10‑minute transient cache</p>
+        <p><strong>Example:</strong> <code>[apfw_filters container=".products" fields_to_show="categories,price"]</code></p>`
     },
     widget: {
         title: 'Elementor Widget Settings',
         icon: 'fa-cog',
         body: `<p><strong>Content Tab:</strong><br>
         • Filter Content: map taxonomies (e.g., <code>pa_size</code> to Size), enable fields.<br>
-        • Settings: Target container, Loop Grid Query ID/Template ID, cache‑busting toggle.</p>
-        <p><strong>Style Tab:</strong> Extensive controls for container, buttons, sliders, checkboxes – shadows, borders, typography.</p>
-        <p><strong>JavaScript isolation:</strong> Each widget instance reads <code>data-*</code> attributes and attaches debounced events (300ms clicks, 800ms typing) to prevent conflicts.</p>`
+        • Settings & Integration: Filter Target, Target Container Selector, Loop Grid Query ID/Template ID, "Force Real‑Time Updates" cache‑busting switch, Active Filter Chips, Collapsible Filter on Mobile.</p>
+        <p><strong>Style Tab:</strong> Extensive controls for container, titles/labels, category buttons/dropdown, price range, checkboxes/radios, rating stars, and action buttons – shadows, borders, typography, per‑state (normal/hover/active) colors.</p>
+        <p><strong>JavaScript isolation:</strong> Each widget instance reads <code>data-*</code> attributes and attaches debounced events (300ms clicks, 600ms typing) to prevent conflicts.</p>`
     },
     troubleshooting: {
         title: 'AJAX Troubleshooting',
@@ -77,16 +83,26 @@ const docsDB = {
             <li><i class="fas fa-check" style="color:#007cba;"></i> “Add to cart” on newly loaded products works.</li>
             <li><i class="fas fa-check" style="color:#007cba;"></i> Browser back/forward restores filter state.</li>
             <li><i class="fas fa-check" style="color:#007cba;"></i> Multiple filter instances operate independently.</li>
+            <li><i class="fas fa-check" style="color:#007cba;"></i> Active filter chips appear above the grid and can be removed individually or via “Clear all”.</li>
+            <li><i class="fas fa-check" style="color:#007cba;"></i> Mobile filter drawer toggles open/closed and shows an active‑filter count badge.</li>
+            <li><i class="fas fa-check" style="color:#007cba;"></i> Direct/shared URLs with <code>apfw_*</code> query params pre‑filter the grid on first load (SSR).</li>
         </ul>`
     },
     faq: {
         title: 'Frequently Asked Questions',
         icon: 'fa-question-circle',
-        body: `<p><strong>Q: Why doesn't the filter update my grid?</strong><br>A: 90% wrong container selector. Follow the “Container Class” guide.</p>
-        <p><strong>Q: Does it work with caching plugins?</strong><br>A: Yes. Uses 5‑minute transients and offers “Force Real‑Time Updates” (cache‑busting <code>_cb</code> parameter).</p>
+        body: `<p><strong>Q: Why doesn't the filter update my grid?</strong><br>A: The plugin auto‑detects the product grid by default, but on unusual layouts the container selector may need to be set manually. Follow the “Container Class” guide.</p>
+        <p><strong>Q: Does it work with caching plugins?</strong><br>A: Yes. Filter results use 10‑minute transients and the plugin offers “Force Real‑Time Updates” (cache‑busting <code>_cb</code> parameter) to bypass them when needed.</p>
         <p><strong>Q: How to prevent scroll to top after filter?</strong><br>A: JS automatically scrolls to grid (offset 100px) – configurable.</p>
-        <p><strong>Q: Can I style the shortcode globally?</strong><br>A: Yes, under <strong>WooCommerce > Settings > Advanced Filter</strong> → Shortcode Appearance.</p>
-        <p><strong>Q: How are parameters processed?</strong><br>A: Sanitized and mapped to <code>WP_Query</code> (<code>tax_query</code>, <code>meta_query</code>) in <code>APFW_Filter_Ajax::apply_elementor_filters()</code>.</p>`
+        <p><strong>Q: Can I style the shortcode globally?</strong><br>A: Yes, under <strong>WooCommerce > Settings > Advanced Filter</strong> → Shortcode Appearance. The same page also has global switches for Active Filter Chips and the Mobile Filter Toggle.</p>
+        <p><strong>Q: How are parameters processed?</strong><br>A: Sanitized and mapped to <code>WP_Query</code> (<code>tax_query</code>, <code>meta_query</code>) in <code>APFW_Filter_Ajax::apply_elementor_filters()</code>, with price filtering optimized against WooCommerce's <code>wc_product_meta_lookup</code> table.</p>`
+    },
+    source: {
+        title: 'Source Code & Releases',
+        icon: 'fa-code-branch',
+        body: `<p>The plugin's full source code, issue tracker, and release archives live on GitHub:</p>
+        <p><a href="https://github.com/Joshuaetok/advanced-product-filter-for-woocommerce" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> github.com/Joshuaetok/advanced-product-filter-for-woocommerce</a></p>
+        <p>Download the latest packaged plugin <code>.zip</code> directly from the repository root, or clone it to contribute.</p>`
     }
 };
 
@@ -149,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ----- Header menu links (Quick Start, Checklist, FAQs) -----
-    const headerLinks = document.querySelectorAll('.nav-links a[data-topic]');
+    // ----- Header menu links (Quick Start, Checklist, FAQs) + hero buttons -----
+    const headerLinks = document.querySelectorAll('.nav-links a[data-topic], .hero-buttons a[data-topic]');
     headerLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -192,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${docData.body}
             </div>
             <p style="margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px; font-size:0.9rem; color:#64748b;">
-                <i class="fas fa-sync-alt" style="margin-right: 6px;"></i> Last updated: 2025-03-13 · loaded via simulated AJAX
+                <i class="fas fa-sync-alt" style="margin-right: 6px;"></i> Last updated: 2026-10-25 · loaded via simulated AJAX
             </p>
         `;
     }
